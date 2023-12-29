@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>구매내역</title>
+</head>
+<body>
+<h1>구매내역</h1>
+
+<table border="1">
+    <tr>
+        <th>고객명</th>
+        <th>상품명</th>
+        <th>수량</th>
+        <th>구매일자</th>
+        <th>구매번호</th>
+    </tr>
+    <tr th:each="receiptDto : ${receiptList}">
+        <td th:text="${receiptDto.name}"></td>
+        <td th:text="${receiptDto.productName}"></td>
+        <td th:text="${receiptDto.quantity}"></td>
+        <td th:text="${#dates.format(receiptDto.buyday, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${receiptDto.purchaseId}"></td>
+    </tr>
+</table>
+<button onclick="goBack()">돌아가기</button>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>구매 페이지</title>
+</head>
+<body>
+    <form action="/purchase" method="post">
+        <table>
+            <tr th:each="purchaseDto : ${basketList}">
+                <td th:text="${purchaseDto.productName}"></td>
+                <td th:text="${purchaseDto.quantity}"></td>
+                <td>
+                    <input type="checkbox" th:value="${purchaseDto.productName}" name="basketList" />
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="예">
+    </form>
+    <button onclick="goBack()">돌아가기</button>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+

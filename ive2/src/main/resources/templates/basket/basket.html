@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+    <head> 
+        <title>메뉴판</title> 
+    </head> 
+    <body> 
+        <h1>메뉴판</h1>
+        <h3>현재 에러로 인해 전체선택을 하고 원하는 제품의 수량을 입력해야됨</h3> 
+        <form action="/addToBasket" method="post"> 
+            <input type="hidden" th:value="${userName}" name="userName" /> 
+            <input type="hidden" th:value="${userId}" name="userId" /> 
+            <table> 
+                <tr> 
+                    <th>상품명</th> 
+                    <th>재고수량</th> 
+                    <th>선택</th> 
+                    <th>주문수량</th> 
+                </tr> 
+                <tr th:each="menu, menuStat : ${menuItems}"> 
+                    <td th:text="${menu.productName}"></td> 
+                    <td th:text="${menu.quantity}"></td> 
+                    <td> 
+                        <input type="checkbox" th:value="${menu.productName}" th:name="productNames" th:id="'product' + ${menuStat.index}" /> 
+                    </td> 
+                    <td> 
+                        <input type="number" min="1" th:name="quantities" th:id="'quantity' + ${menuStat.index}" /> 
+                    </td> 
+                </tr> 
+            </table> 
+            <button type="submit">담기</button> 
+        </form>
+        <button onclick="goBack()">돌아가기</button>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script> 
+    </body> 
+</html> 

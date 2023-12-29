@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>재고수량 추가</title>
+</head>
+<body>
+    <h1>재고수량 추가</h1>
+    <form th:action="@{/inventory/add}" method="post">
+        <div>
+            <label for="productName">제품명:</label>
+            <input type="text" id="productName" name="productName" required th:value="${productName}">
+            <button type="submit" name="action" value="search">검색</button>
+        </div>
+
+        <!-- 제품명 검색 결과에 따라 다음 단계 표시 -->
+        <div th:if="${existing == 'not_existing' && !idDuplicate}">
+            <!-- 존재하지 않는 제품이며 중복된 ID가 없는 경우 -->
+            <label for="productId">제품 ID:</label>
+            <input type="text" id="productId" name="productId" required th:value="${productId}">
+            <button type="submit" name="action" value="idSearch">제품 ID 검색</button>
+        </div>
+        
+        <div th:if="${existing == 'not_existing' && idDuplicate == true}">
+            <!-- 존재하지 않는 제품이며 중복된 ID가 있는 경우 -->
+            <div style="color: red;">이미 존재하는 ID입니다. 다른 ID를 입력하세요.</div>
+        </div>
+        
+        <div th:if="${existing == 'existing'}">
+            <!-- 이미 존재하는 제품이며 중복된 ID가 없는 경우 -->
+            <label for="quantity">수량:</label>
+            <input type="text" id="quantity" name="quantity" required>
+            <button type="submit" name="action" value="add">추가</button>
+        </div>
+        
+        <div th:if="${idSearchButtonVisible == false}">
+            <!-- 제품 ID 검색이 완료되었으며 중복된 ID가 없는 경우 -->
+            <label for="productId">제품 ID:</label>
+            <input type="text" id="productId" name="productId" required th:value="${productId}">
+            <label for="quantity">수량:</label>
+            <input type="text" id="quantity" name="quantity" required>
+            <button type="submit" name="action" value="add">추가</button>
+        </div>
+    </form>
+    <button onclick="goBack()">이전</button>
+    <script>
+        function goBack(){
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
